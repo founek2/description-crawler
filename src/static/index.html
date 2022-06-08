@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="static/style.css" />
+    </head>
+    <body>
+        <div id="heading-section">
+            <h1>WikiCrawler</h1>
+            <p>Who needs the MediaWiki API anyway?</p>
+        </div>
+        <div id="search-section">
+            <input id="search-box" type="text" name="search" placeholder="Search.." list="suggestions" />
+            <datalist id="suggestions"> </datalist>
+
+            <button id="search-submit" onclick="fuzzySearch()">Send</button>
+        </div>
+        <div id="instructions">
+            <p>
+                Enter keywords to use to search Wikipedia, and use the links the appear below to go directly to the
+                article you want.
+            </p>
+        </div>
+        <div id="results-section">
+            <!-- no-results-text will go here -->
+            <ul id="results-list">
+                <!-- dynamic -->
+            </ul>
+        </div>
+
+        <script type="module" src="static/main.js"></script>
+        <datalist id="default-list">
+            <option value="Japan">b1d2c0ec-6ae7-4435-b5db-c4dbca118f4c</option>
+            <option value="Edinburgh, UK">6b211a47-419a-410a-8701-4c8e1573c568</option>
+            <option value="Indonesia">4bbfea2f-7de3-4e75-bbce-8604a8624eab</option>
+            <option value="Colorado Springs, CO, USA">64624bf8-a182-4795-84b1-e21083002348</option>
+            <option value="Lisbon, Portugal">6cbb2f2c-2463-4759-ac8c-9719a170cdd7</option>
+            <option value="Dolomites, 32023 Rocca Pietore, Province of Belluno, Italy">
+                d661b983-e737-4156-b491-22b7b33a0a58
+            </option>
+            <option value="Bath, UK">d21d5f95-1227-4faf-9ce7-f463ecd7d1a5</option>
+            <option value="Dublin, Ireland">a7303400-2f9d-40f9-8321-1a53aadb94f5</option>
+            <option value="Tofino, BC, Canada">5894238e-addd-4d2a-a137-8bbc96a97b20</option>
+            <option value="Melbourne VIC, Australia">18621cf5-dd13-407d-8969-dcab1d087291</option>
+            <option value="Llandudno, UK">a6743cb8-90d6-4b73-8e96-3b1327b561b2</option>
+            <option value="Osaka, Japan">87363508-e6bc-4f9b-a424-146b5e7cc208</option>
+            <option value="Marrakesh, Morocco">730419e9-c1f2-465b-833f-14df0dfaef8e</option>
+            <option value="Stockholm, Sweden">aef0f9e9-edc3-4d9f-82a8-d95dab8684f4</option>
+            <option value="Seattle, WA, USA">4839c9bf-5f04-4462-931f-227f650a75ad</option>
+            <option value="Hong Kong">ae9b35b6-ff68-4186-929e-22284b84182a</option>
+            <option value="Hamburg, Germany">0fe71e10-9fab-4514-a39a-0f40996bd574</option>
+            <option value="Moab, UT 84532, USA">29ad233c-322f-440e-9ef4-328121f7a6ee</option>
+            <option value="Cape Town, South Africa">727ad458-d063-41d3-987c-8150998e4737</option>
+            <option value="Banff, AB, Canada">99819c11-79df-443e-bb82-36b0f42a2dcc</option>
+            <option value="Cinque Terre, SP, Italy">3983c667-b033-4465-b9e1-0abf82a42580</option>
+            <option value="Barcelona, Spain">b995cd57-beca-49bb-b77b-23394628f520</option>
+            <option value="Munich, Germany">d45e3e75-d461-45a7-b3da-db45aaea73ea</option>
+            <option value="Oxford, UK">93bcd2ce-28a2-4786-b7f2-c4aa9d60085e</option>
+            <option value="Nashville, TN, USA">81c03969-f0e0-4531-bacb-18581c97ad8e</option>
+            <option value="Manchester, UK">05fc18ef-7368-48ed-9d9c-5c3e432547c7</option>
+            <option value="İstanbul, Turkey">d02118ab-7ad2-4455-8df8-d3f0fced1d9c</option>
+            <option value="Faroe Islands">21297f39-a415-4093-983d-c1be1c014f25</option>
+            <option value="Copenhagen, Denmark">51aafda8-7459-4857-a928-a891b06fc5eb</option>
+            <option value="Brighton, UK">5fd1c8c6-10df-4264-afdb-ccce2f54a134</option>
+            <option value="Jaipur, Rajasthan, India">f6414861-62eb-4faf-9416-5d2ef298ef45</option>
+            <option value="Santorini, Greece">d3415459-9121-4464-8374-e02448fdfe23</option>
+            <option value="Utah, USA">cb33e4dd-e78b-4367-82d6-f92419d0cd72</option>
+            <option value="Atlantic City, NJ, USA">78eabc8d-e7ee-4672-b582-b3d1c1201bd1</option>
+            <option value="Hastings, UK">21c729ed-0b4a-4f62-88ac-9b80b2cc5931</option>
+            <option value="Blackpool, UK">e8e970a9-7cef-4648-957d-632f1109836d</option>
+            <option value="Niagara Falls, NY, USA">a5ff76ce-5944-4d92-a9b0-30c08d39722c</option>
+            <option value="Indianapolis, IN, USA">b9cdc39c-89c5-4ea5-88e2-a975ef670703</option>
+            <option value="Myrtle Beach, SC, USA">28f3fe1a-abf4-48ae-9edf-3ab4861b25f5</option>
+            <option value="Seaside Heights, NJ 08751, USA">93e19efd-a20e-4ec2-a532-8dc2bac8f9fe</option>
+            <option value="Costa Rica">c0086e89-97da-471f-8c76-d6b7dd41db15</option>
+            <option value="Georgia">8c835450-85eb-4f2c-9b27-a11fc2c9f0e0</option>
+            <option value="Rehoboth Beach, DE, USA">91dd1b29-aa63-4c8b-b992-9309d08a54b4</option>
+            <option value="Tybee Island, GA 31328, USA">70e25439-771c-4975-8f20-4394294ca9a1</option>
+            <option value="Tokyo, Japan">2f584a63-2880-4d05-b0bb-a5e73f378300</option>
+            <option value="Orlando, FL, USA">aac833b2-ea5a-44b3-865c-c0e1b8725c75</option>
+            <option value="Greece">bffff66c-5d80-4fed-b7e1-8918b3e8617a</option>
+            <option value="Athens, Greece">40b61647-bc1f-4fbb-b19a-399a73717f44</option>
+            <option value="Orange County, CA, USA">6f569ced-63ec-47a6-9a72-e840b0819ab9</option>
+            <option value="Bali, Indonesia">b44145d2-250d-41f2-902c-a83ace9c877b</option>
+            <option value="California, USA">e26e8e9a-ed65-4720-88ae-472568b39447</option>
+            <option value="Liverpool, UK">7287a2ac-c8de-4aae-ac0a-07fe2cf26947</option>
+            <option value="Belfast, UK">f08b21d7-4e03-4661-b8eb-019c44366e0d</option>
+            <option value="San Diego, CA, USA">0d24a9b0-2d2e-40e9-abc1-57b270134e55</option>
+            <option value="Pardubice, Czechia">3660a51a-107f-4fba-9053-6d4ca7797b27</option>
+            <option value="Rome, Metropolitan City of Rome, Italy">fffa6695-73a4-41f7-abdb-9c79d3247b6d</option>
+            <option value="Apulia, Italy">080b934e-160f-4ab3-acff-1d92cadc92a3</option>
+            <option value="Venice, Metropolitan City of Venice, Italy">eeede12d-7fa8-4f73-8988-3b67a07dace1</option>
+            <option value="Charleston, SC, USA">ef2f2195-3b89-41bd-9578-07bffb3b26fe</option>
+            <option value="Galveston, TX, USA">67694a13-12a0-4a5e-aa4c-20337d52edf2</option>
+            <option value="New Orleans, LA, USA">281cd97a-a1e1-4572-8b3d-1610f18b3930</option>
+            <option value="Palm Springs, CA, USA">948dcb6a-119e-4622-8ab9-6869107fe563</option>
+            <option value="Cairo, Cairo Governorate, Egypt">08ad698a-a5af-4c83-bfb4-9d55f9f8dee5</option>
+            <option value="Florence, Metropolitan City of Florence, Italy">2cf0ad5f-03e9-40f5-9cd5-3c695ae20678</option>
+            <option value="Vietnam">283bcd2a-bb0d-40a0-91cb-610197d86b01</option>
+            <option value="Chiang Mai, Mueang Chiang Mai District, Chiang Mai, Thailand">
+                f9d66dc8-be17-4dbd-bc98-1f89a18db302
+            </option>
+            <option value="Paris, France">a86d5433-fab8-4559-98bf-19291f5a1e42</option>
+            <option value="Bristol, UK">085b81f3-1c0a-47dd-944a-da2b77e101ac</option>
+            <option value="Tbilisi, Georgia">ea3e7ad8-73ca-45c1-a67f-0ea7d35a3754</option>
+            <option value="Bali, Indonesia">58dc2926-b54a-4c27-9f1d-c0831524bf37</option>
+            <option value="New York, NY, USA">921f7521-0a1c-4545-82d2-b11faf6cd7ac</option>
+            <option value="Berlin, Germany">4a532f97-5ae1-4475-bd83-53dca1db4055</option>
+            <option value="Virginia Beach, VA, USA">c197d743-83d5-4fc5-a259-39ccb9ef1d46</option>
+            <option value="Kyoto, Japan">f094efb2-c198-481e-905b-ddf7f422e267</option>
+            <option value="Vienna, Austria">667c675b-bc49-4e44-9364-d0d53396ce89</option>
+            <option value="Prague, Czechia">3635bfc1-5609-4b2a-be53-13f308c8ddae</option>
+            <option value="Singapore">2780aaef-d890-41c2-b3d9-287bd9a4644e</option>
+            <option value="Tulum, Quintana Roo, Mexico">090f0c3f-c9fd-4026-8233-7c036cf6aa29</option>
+            <option value="Santa Barbara, CA, USA">1f8f9595-ae57-4133-ad7d-ce5eae26bd59</option>
+            <option value="Amalfi Coast, Italy">eee4ec23-8a96-42cb-abeb-16e6a80898f1</option>
+            <option value="Isle of Skye, UK">9b91ea36-d9db-4a4d-9039-989553eb39bd</option>
+            <option value="Bora-Bora, French Polynesia">03cd9c81-ccde-436d-bfa5-a8bee326c3d5</option>
+            <option value="San Francisco, CA, USA">d6bb0576-621f-4c50-9768-1851b4164fdd</option>
+            <option value="British Columbia, Canada">51d9da2e-0c1a-4dc2-b861-39ce8262f3f1</option>
+            <option value="Quebec City, QC, Canada">38c97f66-edfa-4471-b43c-1666e136c66e</option>
+            <option value="Thailand">af4baae2-06f0-4241-aa92-b547e283c98b</option>
+            <option value="Maldives">d4d4cc59-e4e1-41a5-b1df-00bec969013e</option>
+            <option value="Ireland">1a478d46-e819-4ed5-9b8f-ac318db57713</option>
+        </datalist>
+    </body>
+</html>

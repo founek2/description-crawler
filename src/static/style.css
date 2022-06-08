@@ -1,0 +1,67 @@
+* {
+    font-size: 16px;
+    font-family: 'Open Sans', sans-serif;
+}
+    
+body {
+    /* width: 100%; */
+    margin: 0 80px;
+}
+
+h1 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 2rem;
+}
+
+li {
+    list-style: none;
+    text-decoration: none;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+#heading-section {
+    width: 70%;
+    margin: 100px auto 20px auto;
+    text-align: center;
+}
+
+#search-section {
+    width: 90%;
+    margin: 40px auto;
+    text-align: center;
+}
+
+#search-box {
+    height: 2rem;
+    width: 40%;
+    margin: 0 auto;
+} 
+
+#search-submit {
+    height: 2.4rem;
+    width: 60px;
+    text-align: center;
+}
+
+#instructions {
+    width: 50%;
+    margin: 20px auto;
+    text-align: center;
+}
+
+#results-section {
+    width: 80%;
+    margin: 40px auto;
+    border-radius: 3px;
+    background-color: #EEE0E3;
+    /* min-height: 100px; */
+}
+
+.no-results-text {
+    width: 60%;
+    margin: auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+}

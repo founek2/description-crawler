@@ -1,0 +1,18 @@
+{
+    "name": "description-crawler",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "https://github.com/founek2/description-crawler.git",
+    "author": "Martin Skalický <skalicky.martas@seznam.cz>",
+    "license": "MIT",
+    "scripts": {
+        "dev": "node src/index.js"
+    },
+    "dependencies": {
+        "cheerio": "^1.0.0-rc.11",
+        "express": "^4.18.1",
+        "form-scraper": "^0.0.4",
+        "promisified-request": "^0.0.3",
+        "request": "^2.88.2"
+    }
+}
