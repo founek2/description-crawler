@@ -4,10 +4,13 @@ from typing import List
 from bs4 import BeautifulSoup
 import re
 import requests
+
+from crawler.general import Section
  
 
-def crawlText(searchText):
-    return requests.get(f"https://en.wikipedia.org/w/index.php?search={searchText}")
+def searchWiki(searchText):
+    page = requests.get(f"https://en.wikipedia.org/w/index.php?search={searchText}&title=Special:Search&profile=advanced&fulltext=1&ns0=1")
+    return BeautifulSoup(page.content, 'html.parser')
 
 def location_of_first_brackets(text, offset):
     opened = 0
@@ -45,45 +48,31 @@ def skip_first_brackets(paragraph):
  
 # scrape webpage
 
-class Section(object):
-    heading: str
-    paragraphs: list
-    link: str
 
-    def __init__(self, heading: str) -> None:
-        self.heading = heading
-        self.paragraphs = []
-        self.link = ""
-    
-    def __repr__(self):
-        return f"Section(heading={self.heading}, numOfParagraphs={len(self.paragraphs)})"
-
-    def __str__(self):
-        return f"Section(heading={self.heading}, numOfParagraphs={len(self.paragraphs)})"
-        
-    def toJson(self):
-        return {"heading": self.heading, "paragraphs": self.paragraphs, "link": self.link}
- 
 
 def crawlWikipedia(name: str, address:str):
-    print("Looking for:", name)
-    page = requests.get(f"https://en.wikipedia.org/w/index.php?search={name}&title=Special:Search&profile=advanced&fulltext=1&ns0=1")
-    soup = BeautifulSoup(page.content, 'html.parser')
-    
-    # searchExists = soup.find("p", {"class": "mw-search-exists"})
-    # if searchExists.get_text(strip=True).startswith("There is a page named"):
-    #     return parseWikipedia(requests.get("https://en.wikipedia.org/" + searchExists.a["href"]))
+    print("Looking for:", address)
+    link = findWikipediaPage(address)
+    if not link:
+        link = findWikipediaPage(name)
 
-    container = soup.find("div", {"class": "searchresults mw-searchresults-has-iw"})
+    return parseWikipediaPage(link)
+
+# searchExists = soup.find("p", {"class": "mw-search-exists"})
+# if searchExists.get_text(strip=True).startswith("There is a page named"):
+#     return parseWikipedia(requests.get("https://en.wikipedia.org/" + searchExists.a["href"]))
+def findWikipediaPage(text: str):
+    print("Looking for:", text)
+    soup = searchWiki(text)
+
+    container = soup.find("div", {"class": "searchresults"})
+    if not container or not container.ul:
+        return None
     resultList = container.ul.contents
+    el = resultList[0] 
+    return requests.get("https://en.wikipedia.org/" + el.a["href"])
 
-    # for el in resultList:
-    #     print(el.div.get_text())
-    el = resultList[0]
-    # TODO check match description for address
-    return parseWikipedia(requests.get("https://en.wikipedia.org/" + el.a["href"]))
-
-def parseWikipedia(page: requests.Response) -> List['Section']:
+def parseWikipediaPage(page: requests.Response) -> List['Section']:
     print("parsing ", page.url)
     soup = BeautifulSoup(page.content, 'html.parser')
     content = soup.find(id="mw-content-text").find("div", {"class": "mw-parser-output"})
@@ -97,7 +86,9 @@ def parseWikipedia(page: requests.Response) -> List['Section']:
         #     el.extract()
         # else:
         #     print(el.name)
-        if el.name == "p" or el.name == "h2":
+        if el.name == "h2":
+            allowed.append(el)
+        if  el.name == "p" and not el.find(id="coordinates"): # ignore coordinates
             allowed.append(el)
 
     print(len(allowed))
@@ -110,10 +101,11 @@ def parseWikipedia(page: requests.Response) -> List['Section']:
     #     if len(item.get_text(strip=True)) == 0:
     #         item.extract()
 
+    print(allowed[0])
     heading = soup.find(id="firstHeading").get_text()
     sections = [Section(heading)]
-    for el in allowed[:15]:
-        print(el.name, el.next_sibling.name)
+    for el in allowed[:10]:
+        # print(el.name, el.next_sibling.name)
         # if el.name =="h2":
         #     print(el.get_text())
         if el.name == "h2":

@@ -21,15 +21,10 @@
                 article you want.
             </p>
         </div>
-        <div id="results-section">
-            <!-- no-results-text will go here -->
-            <ul id="results-list">
-                <!-- dynamic -->
-            </ul>
-        </div>
+        <div id="results-section"></div>
 
         <script type="module" src="static/main.js"></script>
-        <datalist id="default-list">
+        <datalist id="cities-list">
             <option value="Japan">b1d2c0ec-6ae7-4435-b5db-c4dbca118f4c</option>
             <option value="Edinburgh, UK">6b211a47-419a-410a-8701-4c8e1573c568</option>
             <option value="Indonesia">4bbfea2f-7de3-4e75-bbce-8604a8624eab</option>
@@ -122,6 +117,414 @@
             <option value="Thailand">af4baae2-06f0-4241-aa92-b547e283c98b</option>
             <option value="Maldives">d4d4cc59-e4e1-41a5-b1df-00bec969013e</option>
             <option value="Ireland">1a478d46-e819-4ed5-9b8f-ac318db57713</option>
+        </datalist>
+        <datalist id="random-list">
+            <option value="Japan (Japan)">b1d2c0ec-6ae7-4435-b5db-c4dbca118f4c</option>
+            <option value="Indonesia (Indonesia)">4bbfea2f-7de3-4e75-bbce-8604a8624eab</option>
+            <option value="Dolci Pensieri (Via del Ponte alle Riffe, 26, 50133 Firenze FI, Italy)">
+                3162dee6-f9d3-440d-9b47-7e95a557fcaf
+            </option>
+            <option value="Colorado Springs (Colorado Springs, CO, USA)">64624bf8-a182-4795-84b1-e21083002348</option>
+            <option value="Coquinarius (Via dell'Oche, 11R, 50122 Firenze FI, Italy)">
+                83af509b-13d5-484c-a132-2e801f607ad1
+            </option>
+            <option value="Dolomites (Dolomites, 32023 Rocca Pietore, Province of Belluno, Italy)">
+                d661b983-e737-4156-b491-22b7b33a0a58
+            </option>
+            <option value="Bath (Bath, UK)">d21d5f95-1227-4faf-9ce7-f463ecd7d1a5</option>
+            <option value="Dublin (Dublin, Ireland)">a7303400-2f9d-40f9-8321-1a53aadb94f5</option>
+            <option value="Tofino (Tofino, BC, Canada)">5894238e-addd-4d2a-a137-8bbc96a97b20</option>
+            <option value="Melbourne (Melbourne VIC, Australia)">18621cf5-dd13-407d-8969-dcab1d087291</option>
+            <option value="Osaka (Osaka, Japan)">87363508-e6bc-4f9b-a424-146b5e7cc208</option>
+            <option value="MAJER La Cantinetta (Sestriere, Campo S. Giacomo da l'Orio, 1658, 30100 Venezia VE, Italy)">
+                972912db-176b-45d0-9d4d-9ff0967933b1
+            </option>
+            <option value="Marrakesh (Marrakesh, Morocco)">730419e9-c1f2-465b-833f-14df0dfaef8e</option>
+            <option value="Stockholm (Stockholm, Sweden)">aef0f9e9-edc3-4d9f-82a8-d95dab8684f4</option>
+            <option value="Seattle (Seattle, WA, USA)">4839c9bf-5f04-4462-931f-227f650a75ad</option>
+            <option value="Hong Kong (Hong Kong)">ae9b35b6-ff68-4186-929e-22284b84182a</option>
+            <option value="Hamburg (Hamburg, Germany)">0fe71e10-9fab-4514-a39a-0f40996bd574</option>
+            <option value="Moab (Moab, UT 84532, USA)">29ad233c-322f-440e-9ef4-328121f7a6ee</option>
+            <option value="Cape Town (Cape Town, South Africa)">727ad458-d063-41d3-987c-8150998e4737</option>
+            <option value="Banff (Banff, AB, Canada)">99819c11-79df-443e-bb82-36b0f42a2dcc</option>
+            <option value="St. Mark's Square (Piazza San Marco, 30124 Venezia VE, Italy)">
+                d763789e-18a9-440f-bcf6-ffa6dd670c60
+            </option>
+            <option
+                value="San Giorgio Maggiore (San Giorgio Maggiore, 30133 Venice, Metropolitan City of Venice, Italy)"
+            >
+                1104dcda-4c79-4205-8930-101635bbdede
+            </option>
+            <option value="Munich (Munich, Germany)">d45e3e75-d461-45a7-b3da-db45aaea73ea</option>
+            <option value="Casa de Pilatos (Pl. de Pilatos, 1, 41003 Sevilla, Spain)">
+                ba68a37a-2f14-4433-8f2f-52521d6ddbbd
+            </option>
+            <option value="Torcello (Torcello, 30142 Venice, Metropolitan City of Venice, Italy)">
+                b3c3e859-057b-4d36-b70c-4fe535762067
+            </option>
+            <option value="Nashville (Nashville, TN, USA)">81c03969-f0e0-4531-bacb-18581c97ad8e</option>
+            <option value="İstanbul (İstanbul, Turkey)">d02118ab-7ad2-4455-8df8-d3f0fced1d9c</option>
+            <option value="Copenhagen (Copenhagen, Denmark)">51aafda8-7459-4857-a928-a891b06fc5eb</option>
+            <option value="Brighton (Brighton, UK)">5fd1c8c6-10df-4264-afdb-ccce2f54a134</option>
+            <option value="Santorini (Santorini, Greece)">d3415459-9121-4464-8374-e02448fdfe23</option>
+            <option value="La Cité (Borgo S. Frediano, 20/R, 50124 Firenze FI, Italy)">
+                66baf952-c6e7-4bc4-b55a-e92c8754d784
+            </option>
+            <option value="Trattoria Cammillo (Borgo S. Jacopo, 57/r, 50125 Firenze FI, Italy)">
+                fcc03ca7-7408-464a-9398-e6f3b9513c50
+            </option>
+            <option value="Hastings (Hastings, UK)">21c729ed-0b4a-4f62-88ac-9b80b2cc5931</option>
+            <option value="Costa Rica (Costa Rica)">c0086e89-97da-471f-8c76-d6b7dd41db15</option>
+            <option value="Georgia (Georgia)">8c835450-85eb-4f2c-9b27-a11fc2c9f0e0</option>
+            <option value="Campidoglio (Piazza del Campidoglio, 00186 Roma RM, Italy)">
+                8a022f5c-e678-4412-ba1a-3cf4208be081
+            </option>
+            <option value="Terrazza Caffarelli (Piazzale Caffarelli, 4, 00186 Roma RM, Italy)">
+                7873c84a-be4b-43e4-a256-53a10a8440bb
+            </option>
+            <option value="Rehoboth Beach (Rehoboth Beach, DE, USA)">91dd1b29-aa63-4c8b-b992-9309d08a54b4</option>
+            <option value="Tybee Island (Tybee Island, GA 31328, USA)">70e25439-771c-4975-8f20-4394294ca9a1</option>
+            <option value="Tokyo (Tokyo, Japan)">2f584a63-2880-4d05-b0bb-a5e73f378300</option>
+            <option value="Orlando (Orlando, FL, USA)">aac833b2-ea5a-44b3-865c-c0e1b8725c75</option>
+            <option value="Greece (Greece)">bffff66c-5d80-4fed-b7e1-8918b3e8617a</option>
+            <option value="Athens (Athens, Greece)">40b61647-bc1f-4fbb-b19a-399a73717f44</option>
+            <option value="Alberobello (70011 Alberobello BA, Italy)">05feafb9-5f9d-4b6d-a50f-38cccdb5cbe4</option>
+            <option value="Piazza della Indipendenza (Piazza della Indipendenza, 50129 Firenze FI, Italy)">
+                87de2012-bc5c-4efb-82d2-52268adea2e8
+            </option>
+            <option value="All’Antico Vinaio (Via dei Neri, 74, Via Ricasoli, 121, 50122 Firenze FI, Italy)">
+                a0bf39d6-64e9-4b29-a24d-99627223398a
+            </option>
+            <option value="Yosemite National Park (California, USA)">e26e8e9a-ed65-4720-88ae-472568b39447</option>
+            <option value="Belfast (Belfast, UK)">f08b21d7-4e03-4661-b8eb-019c44366e0d</option>
+            <option value="Colosseum (Piazza del Colosseo, 1, 00184 Roma RM, Italy)">
+                aeb3c869-bc98-4faa-ab46-19ca9f65d9d6
+            </option>
+            <option value="Joshua Tree National Park (California, USA)">3acbfee3-c979-4908-af0f-e75c31a1c291</option>
+            <option value="Coquinarius Fiesole (Via Giuseppe Mantellini, 2b, 50014 Fiesole FI, Italy)">
+                328446c6-a686-43ea-8fa5-25f56a8068d9
+            </option>
+            <option value="Prater (1020 Vienna, Austria)">b3aa5a77-a84f-4409-a7a7-7bf513401f76</option>
+            <option value="San Diego (San Diego, CA, USA)">0d24a9b0-2d2e-40e9-abc1-57b270134e55</option>
+            <option value="Tikal Peten (69FQ+XH4, Tikal, Guatemala)">62e5a0e0-c4fd-4d00-817e-d3477602f4c7</option>
+            <option value="San Diego Air &amp; Space Museum (2001 Pan American Plaza, San Diego, CA 92101, USA)">
+                7b6555a6-8231-4257-8c1b-fdce911869b1
+            </option>
+            <option value="Stellar Partners Inc (1 Saarinen Cir, Sterling, VA 20166, USA)">
+                3a5154be-e5f1-4ff1-aef5-dcf16282919f
+            </option>
+            <option value="Trattoria Da Enzo al 29 (Via dei Vascellari, 29, 00153 Roma RM, Italy)">
+                e9255afb-54c3-4b0f-97c4-488f38375ea3
+            </option>
+            <option value="Venetian Arsenal (Castello, 30122 Venice, Metropolitan City of Venice, Italy)">
+                22db6020-55d7-48e1-8393-f5a1a8527fc3
+            </option>
+            <option value="Prayagraj (Prayagraj, Uttar Pradesh, India)">2fe181f5-499c-460f-946a-e3b3c93809dd</option>
+            <option value="Cloud Forest (18 Marina Gardens Dr, Singapore 018953)">
+                81a5943e-5008-4fa6-9704-d2fd63012f82
+            </option>
+            <option value="Wings Of Time (50 Beach View, Singapore 098604)">
+                23d28016-e321-47c0-a7a8-7a60e5ea68d4
+            </option>
+            <option value="Vatican Museums (00120, Vatican City)">282581ac-4047-4074-825b-3002ed169d50</option>
+            <option value="S.E.A. Aquarium (8 Sentosa Gateway, Sentosa Island, Singapore 098269)">
+                c87e41d4-89db-47c7-9117-c3beca7f376d
+            </option>
+            <option value="Italy (Italy)">72d3269c-93c2-42b3-a26d-76747bb09be3</option>
+            <option value="Orange County (Orange County, CA, USA)">6f569ced-63ec-47a6-9a72-e840b0819ab9</option>
+            <option value="Venice (Venice, Metropolitan City of Venice, Italy)">
+                eeede12d-7fa8-4f73-8988-3b67a07dace1
+            </option>
+            <option
+                value="Scentopia - Guided Perfume Tours, Scent Making Workshops &amp; More In SG (36 Siloso Beach Walk, Singapore 099007)"
+            >
+                76ba1346-e22b-4585-af6b-ad1d1d956ee1
+            </option>
+            <option value="Dusit Thani Laguna Singapore (11 Laguna Golf Green, Singapore 488047)">
+                4bcdc4f8-75cc-40eb-9519-44c3bbd3be2f
+            </option>
+            <option value="Singapore Changi Airport (Airport Blvd., Singapore)">
+                ee5df2c9-0a81-4764-9dc9-8249297b377c
+            </option>
+            <option value="Rome (Rome, Metropolitan City of Rome, Italy)">fffa6695-73a4-41f7-abdb-9c79d3247b6d</option>
+            <option
+                value="Quentin’s Bar and Restaurant (Singapore, SentosaSG 2 Gunner lane, #01-08, blk 14 Mess Hall 邮政编码: 099567)"
+            >
+                b758dbd6-e146-4507-a2ca-8b14bb6f5318
+            </option>
+            <option value="Mirador Hermosa Nosara (W8XF+PFC, Guanacaste Province, Nosara, Costa Rica)">
+                51449d30-0a9b-4b0f-90ef-91e497bbc8dc
+            </option>
+            <option value="Peraia (Peraia 570 19, Greece)">e5038c0f-8b23-4a4c-8318-bc92c0b150f5</option>
+            <option value="The Slide @T3 (70 Airport Blvd., Singapore 819661)">
+                6419cc1c-28d2-4e36-83c4-d650468cb802
+            </option>
+            <option
+                value="Aerotel Singapore (Above Gate D41, Level 3, Departure/Transit Area Terminal 1, Singapore Changi Airport, Singapore 819642)"
+            >
+                bd8a749c-db0d-4890-bc96-e7db8ea7f559
+            </option>
+            <option value="Charleston (Charleston, SC, USA)">ef2f2195-3b89-41bd-9578-07bffb3b26fe</option>
+            <option value="Red Pike (Red Pike, Cockermouth CA13 9FG, UK)">760acecd-552c-432b-a3ba-137d041a89e2</option>
+            <option value="Galveston (Galveston, TX, USA)">67694a13-12a0-4a5e-aa4c-20337d52edf2</option>
+            <option value="New Orleans (New Orleans, LA, USA)">281cd97a-a1e1-4572-8b3d-1610f18b3930</option>
+            <option value="Makriammos (Makriammos 640 04, Greece)">565c3671-1390-4059-88e8-b6eb77cbca3b</option>
+            <option value="Vienna (Vienna, VA 22180, USA)">70cd84a5-34fa-4a85-a28f-b1ad3dd82636</option>
+            <option value="Florence (Florence, Metropolitan City of Florence, Italy)">
+                2cf0ad5f-03e9-40f5-9cd5-3c695ae20678
+            </option>
+            <option value="Apulia (Apulia, Italy)">080b934e-160f-4ab3-acff-1d92cadc92a3</option>
+            <option value="Bali (Bali, Indonesia)">b44145d2-250d-41f2-902c-a83ace9c877b</option>
+            <option value="The Boboli Gardens (Piazza de' Pitti, 1, 50125 Firenze FI, Italy)">
+                2d0babca-ab7b-4aa6-8f69-535ae1297fb1
+            </option>
+            <option value="Piazza di Santa Croce (Piazza di Santa Croce, 50122 Firenze FI, Italy)">
+                e6aece8f-4a5e-4602-b4cb-16d383f2ae7e
+            </option>
+            <option value="Majorca (Majorca, Balearic Islands, Spain)">c2e50962-4c90-4fea-8632-1215a93d6e91</option>
+            <option value="Pardubice (Pardubice, Czechia)">3660a51a-107f-4fba-9053-6d4ca7797b27</option>
+            <option value="Kostel svatého Bartoloměje (Kostelní 108, 530 02 Pardubice I-Staré Město, Czechia)">
+                c2d2ba29-0c99-41c9-9900-07db4851e3e3
+            </option>
+            <option value="High Stile (High Stile, Cockermouth CA13 9UZ, UK)">
+                e5c0fe3e-6640-459f-864c-37e73f03161c
+            </option>
+            <option value="Eldorado Peak (Eldorado Peak, Washington, USA)">f2e02ba9-4cc6-4f69-999b-208bcf56563e</option>
+            <option
+                value="Folkafe: Coffee &amp; Stories (Jl. Dr. Setiabudi no 79, RT 002/RW 009 Kecamatan Banyumanik, Kelurahan, Srondol Kulon, Kec. Banyumanik, Kota Semarang, Jawa Tengah 50263, Indonesia)"
+            >
+                9ad94ecf-6f64-4d4a-b456-dad328593973
+            </option>
+            <option value="Kavárna Pražírna (50, Lublaňská 676, Nové Město, 120 00 Praha-Praha 2, Czechia)">
+                f4cf3996-78e0-45bd-8687-74c9e2c34bb7
+            </option>
+            <option value="Galerie Café park restaurant (Sukova tř. 2876, 530 02 Pardubice-Pardubice I, Czechia)">
+                9f93414d-a6eb-4353-be96-08c3bad0d479
+            </option>
+            <option value="OPTIMISTA pekařství - bistro (Mezi Mosty 530 03, 530 03 Pardubice I, Czechia)">
+                22b4ecf4-4435-4d9e-9be6-998faccb1e0f
+            </option>
+            <option value="Epifany patisserie (Mezi Mosty 436, 530 03 Pardubice-Pardubice I, Czechia)">
+                1200ccd8-578d-4ae9-b922-443e4d0e586b
+            </option>
+            <option value="Pražírna a kavárna coffeesquare.cz (Valtická 253, 691 44 Lednice, Czechia)">
+                6924a82e-bc95-4889-80b9-a26189cd27d1
+            </option>
+            <option value="Tyršovy sady (Tyršovy sady, 530 02 Pardubice I, Czechia)">
+                10185258-e924-4bc9-bf68-3f113ee5ca15
+            </option>
+            <option value="Pernštýnské náměstí (Pernštýnské nám. 530 02, 530 02 Pardubice I, Czechia)">
+                2a509ca7-ec59-4db8-badb-33387e878266
+            </option>
+            <option value="Accademia Gallery (Via Ricasoli, 58/60, 50129 Firenze FI, Italy)">
+                04f9ef0b-b68a-4dbb-a984-df69c45afa7b
+            </option>
+            <option value="Cathedral of Santa Maria del Fiore (Piazza del Duomo, 50122 Firenze FI, Italy)">
+                34c3d6a8-3878-46bc-b66b-fdfca624f72d
+            </option>
+            <option value="Caffè Gilli (Via Roma, 1r, 50123 Firenze FI, Italy)">
+                67a0a5a7-dad0-40f1-9889-dce8fb89bc8c
+            </option>
+            <option value="Soutok Labe s Chrudimkou (Labská 530 02, 530 02 Pardubice I, Czechia)">
+                9e988537-6aab-43f4-9e7c-5091d0a4a464
+            </option>
+            <option value="Most Zeleňák (530 02 Pardubice IV, Czechia)">cab7baa1-a707-43df-9215-e043a143c4bb</option>
+            <option value="Bakery, Bread &amp; Grill (11186 Lee Hwy, Fairfax, VA 22030, USA)">
+                f899b50e-d320-41ab-9531-33701b5537fb
+            </option>
+            <option value="Stella's Bakery (11510 Rockville Pike D, Rockville, MD 20852, USA)">
+                cb22ff0d-3667-4ef2-b4a8-994b563693ed
+            </option>
+            <option
+                value="Pardubice Castle - The East Bohemia Museum in Pardubice (čp, Zámek 2, 530 02 Pardubice-Pardubice I, Czechia)"
+            >
+                0495d2ff-755d-4409-9dc0-7d97dc62ceab
+            </option>
+            <option value="Montmartre (Montmartre, 75018 Paris, France)">d44f4b21-57de-4be9-b384-5ea5f3e544e1</option>
+            <option value="Wallace Falls Loop Road (Wallace Falls Loop Rd, Gold Bar, WA 98251, USA)">
+                6031082b-b874-4df5-aca3-f302cfdd0bf3
+            </option>
+            <option value="Singapore Botanic Gardens (1 Cluny Rd, Singapore 259569)">
+                46e9cbe2-2e02-4f7c-a2c3-ddf0e18513ca
+            </option>
+            <option value="Gardens by the Bay (18 Marina Gardens Dr, Singapore 018953)">
+                c42c6e9a-2acd-4385-af20-6289eddc4d7b
+            </option>
+            <option value="Fiesole Cathedral (Piazza della Cattedrale, 1, 50014 Fiesole FI, Italy)">
+                3f850fea-2678-47c4-8095-8995cc5e2c60
+            </option>
+            <option value="Piazza della Repubblica (Piazza della Repubblica, 50123 Firenze FI, Italy)">
+                7ba1e5de-d264-46ea-bf36-9c4b661cb826
+            </option>
+            <option value="Edinburgh (Edinburgh, UK)">6b211a47-419a-410a-8701-4c8e1573c568</option>
+            <option value="Lisbon (Lisbon, Portugal)">6cbb2f2c-2463-4759-ac8c-9719a170cdd7</option>
+            <option value="Llandudno (Llandudno, UK)">a6743cb8-90d6-4b73-8e96-3b1327b561b2</option>
+            <option value="Cinque Terre (Cinque Terre, SP, Italy)">3983c667-b033-4465-b9e1-0abf82a42580</option>
+            <option value="Barcelona (Barcelona, Spain)">b995cd57-beca-49bb-b77b-23394628f520</option>
+            <option value="Oxford (Oxford, UK)">93bcd2ce-28a2-4786-b7f2-c4aa9d60085e</option>
+            <option value="Manchester (Manchester, UK)">05fc18ef-7368-48ed-9d9c-5c3e432547c7</option>
+            <option value="Faroe Islands (Faroe Islands)">21297f39-a415-4093-983d-c1be1c014f25</option>
+            <option value="Jaipur (Jaipur, Rajasthan, India)">f6414861-62eb-4faf-9416-5d2ef298ef45</option>
+            <option value="Zion National Park (Utah, USA)">cb33e4dd-e78b-4367-82d6-f92419d0cd72</option>
+            <option value="Atlantic City (Atlantic City, NJ, USA)">78eabc8d-e7ee-4672-b582-b3d1c1201bd1</option>
+            <option value="Blackpool (Blackpool, UK)">e8e970a9-7cef-4648-957d-632f1109836d</option>
+            <option value="Niagara Falls (Niagara Falls, NY, USA)">a5ff76ce-5944-4d92-a9b0-30c08d39722c</option>
+            <option value="Indianapolis (Indianapolis, IN, USA)">b9cdc39c-89c5-4ea5-88e2-a975ef670703</option>
+            <option value="Myrtle Beach (Myrtle Beach, SC, USA)">28f3fe1a-abf4-48ae-9edf-3ab4861b25f5</option>
+            <option value="Seaside Heights (Seaside Heights, NJ 08751, USA)">
+                93e19efd-a20e-4ec2-a532-8dc2bac8f9fe
+            </option>
+            <option value="Liverpool (Liverpool, UK)">7287a2ac-c8de-4aae-ac0a-07fe2cf26947</option>
+            <option value="Palm Springs (Palm Springs, CA, USA)">948dcb6a-119e-4622-8ab9-6869107fe563</option>
+            <option value="Cairo (Cairo, Cairo Governorate, Egypt)">08ad698a-a5af-4c83-bfb4-9d55f9f8dee5</option>
+            <option value="Vietnam (Vietnam)">283bcd2a-bb0d-40a0-91cb-610197d86b01</option>
+            <option value="Virginia Beach (Virginia Beach, VA, USA)">c197d743-83d5-4fc5-a259-39ccb9ef1d46</option>
+            <option value="Amalfi Coast (Amalfi Coast, Italy)">eee4ec23-8a96-42cb-abeb-16e6a80898f1</option>
+            <option value="Isle of Skye (Isle of Skye, UK)">9b91ea36-d9db-4a4d-9039-989553eb39bd</option>
+            <option value="Bora-Bora (Bora-Bora, French Polynesia)">03cd9c81-ccde-436d-bfa5-a8bee326c3d5</option>
+            <option value="San Francisco (San Francisco, CA, USA)">d6bb0576-621f-4c50-9768-1851b4164fdd</option>
+            <option value="British Columbia (British Columbia, Canada)">51d9da2e-0c1a-4dc2-b861-39ce8262f3f1</option>
+            <option value="Quebec City (Quebec City, QC, Canada)">38c97f66-edfa-4471-b43c-1666e136c66e</option>
+            <option value="Thailand (Thailand)">af4baae2-06f0-4241-aa92-b547e283c98b</option>
+            <option value="Ireland (Ireland)">1a478d46-e819-4ed5-9b8f-ac318db57713</option>
+            <option value="San Marco (San Marco, 30100 Venice, Metropolitan City of Venice, Italy)">
+                c7d93391-eb4e-474b-a3bf-3226029e2608
+            </option>
+            <option value="Chiang Mai (Chiang Mai, Mueang Chiang Mai District, Chiang Mai, Thailand)">
+                f9d66dc8-be17-4dbd-bc98-1f89a18db302
+            </option>
+            <option value="Santa Barbara (Santa Barbara, CA, USA)">1f8f9595-ae57-4133-ad7d-ce5eae26bd59</option>
+            <option value="Uffizi Gallery (Piazzale degli Uffizi, 6, 50122 Firenze FI, Italy)">
+                636ce5bb-8d01-46c5-a1ad-3abd1c7b2ddd
+            </option>
+            <option
+                value="Santo Spirito-Catino-San Pio (Santo Spirito-Catino-San Pio, 70127 Bari, Metropolitan City of Bari, Italy)"
+            >
+                88996e2e-e075-42c0-8890-123ffdbe723b
+            </option>
+            <option value="Fasano (72015 Fasano, BR, Italy)">33f629dd-116a-4676-a728-ff1ef756d818</option>
+            <option value="Flower Dome (18 Marina Gardens Dr, Singapore 018953)">
+                8a5240d0-b35d-45bd-8bf2-bd812b7cc716
+            </option>
+            <option value="Little Water Cantina (2865 Eastlake Ave E, Seattle, WA 98102, USA)">
+                52cead51-bdc9-4b88-ade7-5c67dd5e7295
+            </option>
+            <option value="Butterfly Garden Terminal 3 (70 Airport Blvd., Singapore 819661)">
+                dc2aa427-5cc6-4eeb-bf5c-4a998f68bbad
+            </option>
+            <option value="Eiffel Tower (Champ de Mars, 5 Av. Anatole France, 75007 Paris, France)">
+                d335a99f-fdb1-494e-879c-e650fc157b96
+            </option>
+            <option value="Matera (75100 Matera, Province of Matera, Italy)">
+                046429b8-cab4-4c48-a132-d32f135221ca
+            </option>
+            <option value="Paris (Paris, France)">a86d5433-fab8-4559-98bf-19291f5a1e42</option>
+            <option value="Bristol (Bristol, UK)">085b81f3-1c0a-47dd-944a-da2b77e101ac</option>
+            <option value="Bubeníkovy sady (Bubeníkovy sady, 530 03 Pardubice I, Czechia)">
+                069631d7-09be-4eaf-80c7-a5fd25dcf964
+            </option>
+            <option value="Locorotondo (70010 Locorotondo, Metropolitan City of Bari, Italy)">
+                c6bbf860-1dac-4261-abd7-b58a329037f2
+            </option>
+            <option value="Ponte Vecchio (Ponte Vecchio, 50125 Firenze FI, Italy)">
+                00ee45d1-164a-45f9-9c4d-4eed3ebc0875
+            </option>
+            <option value="Thirsty Sasquatch &amp; Hungry Sasquatch (2110 Main St, Vancouver, WA 98660, USA)">
+                61be5c4d-a15e-415f-85d5-1222c2e36bb8
+            </option>
+            <option value="Tbilisi (Tbilisi, Georgia)">ea3e7ad8-73ca-45c1-a67f-0ea7d35a3754</option>
+            <option value="Bali (Bali, Indonesia)">58dc2926-b54a-4c27-9f1d-c0831524bf37</option>
+            <option value="Jewel Changi Airport (78 Airport Blvd., Singapore 819666)">
+                5c006446-3540-4bf2-8c95-93a049330df8
+            </option>
+            <option value="New York (New York, NY, USA)">921f7521-0a1c-4545-82d2-b11faf6cd7ac</option>
+            <option value="Berlin (Berlin, Germany)">4a532f97-5ae1-4475-bd83-53dca1db4055</option>
+            <option value="Kyoto (Kyoto, Japan)">f094efb2-c198-481e-905b-ddf7f422e267</option>
+            <option
+                value="Tangkahan The Hidden Paradise (Unnamed Road, M3HC+VWM, Namu Sialang, Kec. Batang Serangan, Kabupaten Langkat, Sumatera Utara 20852, Indonesia)"
+            >
+                357144da-5b58-4645-9037-d70b05300cbd
+            </option>
+            <option value="Supertree Grove (18 Marina Gardens Dr, Singapore 018953)">
+                e871822c-5b84-4c42-9667-4458d781295c
+            </option>
+            <option
+                value="Five Monkeys Burger - Panglima Polim (Jl. Panglima Polim V No.25B, RT.3/RW.7, Melawai, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12160, Indonesia)"
+            >
+                7f06d05f-3412-48be-b074-d1ea2b33cc55
+            </option>
+            <option
+                value="Denny’s at Mall Kota Kasablanka (Jl. Raya Casablanca No.4, RW.12, Menteng Dalam, Kec. Tebet, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12960, Indonesia)"
+            >
+                a65caaf1-f04b-4609-b2ff-c42c22dfa480
+            </option>
+            <option
+                value="OTSS (1, Jl. Panglima Polim V No.38c, RT.1/RW.7, Melawai, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12160, Indonesia)"
+            >
+                5de467f1-8e99-4af7-9fc2-4f0bba7ff4d0
+            </option>
+            <option
+                value="Lawless Jakarta (7, Jl. Kemang Selatan VIII No.67K, RT.7/RW.2, Bangka, Kec. Mampang Prpt., Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12730, Indonesia)"
+            >
+                a81daa59-2c1f-4fd6-b0f3-148e8a29d407
+            </option>
+            <option value="Vienna (Vienna, Austria)">667c675b-bc49-4e44-9364-d0d53396ce89</option>
+            <option value="Prague (Prague, Czechia)">3635bfc1-5609-4b2a-be53-13f308c8ddae</option>
+            <option value="Bakla café (Pernštýnská 40, 530 02 Pardubice I-Staré Město, Czechia)">
+                5081cd89-476c-46e6-9743-33cba1010038
+            </option>
+            <option value="Giotto's Bell Tower (Piazza del Duomo, 50122 Firenze FI, Italy)">
+                4fdd48be-c54d-4fe2-81ee-02b248dbd989
+            </option>
+            <option value="Park Na Špici (Labská 233, 530 02 Pardubice I, Czechia)">
+                d4fe08be-4a5c-40ad-b527-68c138035ff1
+            </option>
+            <option value="Trattoria Marione (Via della Spada, 27/Rosso, 50123 Firenze FI, Italy)">
+                6d892d75-0f50-4273-a268-44ad6e35c784
+            </option>
+            <option value="Studánecký les (Unnamed Road, 530 03, 530 03 Pardubice III, Czechia)">
+                3cfe8b44-608b-41e6-9261-ac3c522e98f9
+            </option>
+            <option value="Singapore (Singapore)">2780aaef-d890-41c2-b3d9-287bd9a4644e</option>
+            <option value="Holbox Island (Calle Igualdad X Palomino S/N, 77310 Isla Holbox, Q.R., Mexico)">
+                0dd64e60-eba3-4e6e-a8bb-c842be886267
+            </option>
+            <option value="Pulau Ubin (Pulau Ubin, Singapore)">6e48caff-e5ad-42b0-8d16-a5ceb2f97a8c</option>
+            <option value="Isla Mujeres (Isla Mujeres, Q.R., Mexico)">879ab760-f1d4-4fb4-ae6a-895f082913f4</option>
+            <option value="Tulum (Tulum, Quintana Roo, Mexico)">090f0c3f-c9fd-4026-8233-7c036cf6aa29</option>
+            <option value="Prague Castle (119 08 Prague 1, Czechia)">95f08cf0-e022-46f2-bafa-2cef8d6f0a70</option>
+            <option value="Basilica di Santa Maria della Salute (Dorsoduro, 1, 30123 Venezia VE, Italy)">
+                bf0a68e4-0d59-4eb2-acd2-4d267800b193
+            </option>
+            <option value="Twentynine Palms (Twentynine Palms, CA 92277, USA)">
+                1b3b615e-88f8-4071-88bb-b160162fd493
+            </option>
+            <option
+                value="GuzzBun Tebet (11, Jl. Tebet Barat Dalam Raya No.92, RW.6, Tebet Bar., Kec. Tebet, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12810, Indonesia)"
+            >
+                4cfe7fcd-1b17-4acd-8e56-76ce2725e780
+            </option>
+            <option value="White Label Vinyl (73517 Twentynine Palms Highway, Twentynine Palms, CA 92277, USA)">
+                52d497ca-3f7c-458e-b518-eac49d6b207b
+            </option>
+            <option value="Ghiacciaia (Viale della Meridiana, 50125 Firenze FI, Italy)">
+                2bb1d73c-b890-42b4-a480-2a63d7a944c8
+            </option>
+            <option value="Caffè dell'Oro (Lungarno degli Acciaiuoli, 4, 50123 Firenze FI, Italy)">
+                58c47ef9-72d7-4cb9-88ab-36087e98f4aa
+            </option>
+            <option value="Maldives (Maldives)">d4d4cc59-e4e1-41a5-b1df-00bec969013e</option>
+            <option
+                value="Belvedere Fiesole su Firenze (Via Frà Giovanni da Fiesole Detto l'Angelico, 21, 50014 Fiesole FI, Italy)"
+            >
+                27f17f9b-a394-4c09-b80f-028c08b9fc38
+            </option>
+            <option value="Palazzo Vecchio (P.za della Signoria, 50122 Firenze FI, Italy)">
+                776a9e16-6f7f-4be6-b30a-ace641e03f48
+            </option>
+            <option value="Green gate (Zelenobranská 69, 530 02 Pardubice I-Staré Město, Czechia)">
+                64973828-5b87-44d6-a508-6e039db2e9ff
+            </option>
         </datalist>
     </body>
 </html>

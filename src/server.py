@@ -2,11 +2,9 @@ import json
 from flask import Flask, jsonify
 from flask import Flask, send_from_directory
 from flask import request
-import gensim.downloader
-
-model = gensim.downloader.load('glove-wiki-gigaword-100')
-
-from wikipedia import crawlWikipedia
+from crawler import crawlLink
+from google_search import searchForLinks
+from steller import get_place_by_id
 
 app = Flask(__name__)
 
@@ -26,6 +24,9 @@ def hello_world():
 
 @app.route('/crawl')
 def crawl():
-    data = crawlWikipedia(request.args.get("name"), request.args.get("address"))
-
+    id = request.args.get("id")
+    place = get_place_by_id(id)
+    links = searchForLinks(place["data"]["address"])
+    print("links", links)
+    data = crawlLink(links[0])
     return json.dumps(list(map(lambda x: x.toJson(), data)))
