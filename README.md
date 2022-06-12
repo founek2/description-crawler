@@ -6,6 +6,8 @@
 
 ## Posibilities
 
--   trip advisor reviews
+-   trip advisor reviews -> API
 -   search first wiki by name - for long addresses google is not working
     -   maybe could just improve google query???
+-   crawl for images - og:image
+<!-- -   https://wikitravel.org - load time > 20s :( -->

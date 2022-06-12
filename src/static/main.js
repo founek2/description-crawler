@@ -1,5 +1,9 @@
 import { randomIDs } from './ids.js';
 import { fuzzySearch } from './steller.js';
+import japanResponse from './japan.js';
+import { buildResult, buildResults, buildSelectionForm } from './builder.js';
+import { buildTag } from './generator.js';
+import { streamCrawl } from './crawl.js';
 
 function showLoader() {
     document.querySelector('.loader').classList.remove('hidden');
@@ -13,14 +17,17 @@ async function getInfoByID(id) {
     return res.json();
 }
 
+async function crawlID(id) {
+    return fetch(`/crawl?id=${id}`).then((res) => res.json());
+}
+
 async function handleOptionClick(id) {
     showLoader();
     try {
         clearResults();
-
-        const res2 = await fetch(`/crawl?id=${id}`);
-        const arr = await res2.json();
-        showResults(arr);
+        await streamCrawl(id, handleStreamSection);
+        // const { data } = await crawlID(id);
+        // showResults(data);
     } catch (err) {
         console.error(err);
     }
@@ -65,29 +72,54 @@ function clearResults() {
     section.textContent = '';
 }
 
-function showResults(arr) {
+function showResult(section) {
+    const tag = buildResult(section);
+    const sectionElement = document.querySelector('#results-section');
+    sectionElement.appendChild(tag);
+}
+
+function showResults(sections) {
+    const tag = buildResults(sections);
+    const sectionElement = document.querySelector('#results-section');
+    sectionElement.appendChild(tag);
+}
+
+async function processIDs(ids) {
+    showLoader();
     clearResults();
+    try {
+        const sectionElement = document.querySelector('#results-section');
+        for (const id of ids) {
+            // const json = await crawlID(id);
+            // results.push(json);
+            let showHeader = true;
 
-    const section = document.querySelector('#results-section');
-    arr.forEach((item) => {
-        const sectionContainer = document.createElement('div');
-        const h2 = document.createElement('h1');
-        h2.innerHTML = item.heading;
+            await streamCrawl(id, (section, { place }) => {
+                if (showHeader) {
+                    showHeader = false;
+                    const addr = place.data.address.split(', ');
+                    sectionElement.appendChild(buildTag('h1', place.data.name + ' -  ' + addr[addr.length - 1]));
+                }
+                handleStreamSection(section);
+            });
+        }
 
-        const link = document.createElement('a');
-        link.setAttribute('href', item.link);
-        link.innerHTML = new URL(item.link).hostname;
+        // results.forEach(({ data, place }) => {
 
-        sectionContainer.appendChild(h2);
-        sectionContainer.appendChild(link);
+        //     const addr = place.data.address.split(', ');
+        //     sectionElement.appendChild(buildTag('h1', place.data.name + ' -  ' + addr[addr.length - 1]));
+        //     showResults(data);
+        // });
+    } catch (err) {
+        console.error(err);
+    }
 
-        item.paragraphs.forEach((text) => {
-            const p = document.createElement('p');
-            p.innerHTML = text;
-            sectionContainer.appendChild(p);
-        });
-        section.appendChild(sectionContainer);
-    });
+    hideLoader();
+}
+
+async function handleStreamSection(section) {
+    console.log('handle', section);
+    showResult(section);
 }
 
 let timeout = null;
@@ -100,6 +132,15 @@ window.addEventListener('load', function () {
         );
     });
 
-    resetDatalist('random-list');
+    // resetDatalist('random-list');
+
+    const randomList = document.querySelector('#random-list');
+    const form = buildSelectionForm(randomList, processIDs);
+    const section = this.document.querySelector('#results-section');
+    section.replaceChildren(form);
+
+    // streamCrawl('3e5fa772-b720-4a89-9aac-a4c9149bca7c', handleStreamSection);
+
+    // showResults(japanResponse);
     // generateOptions(internalIDs.slice(100).map((id) => ({ id, data: { address: id } })));
 });

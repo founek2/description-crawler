@@ -1,7 +1,13 @@
 import json
-from flask import Flask, jsonify
+import random
+from re import search
+import string
+from time import sleep
+from flask import Flask, Response, jsonify
 from flask import Flask, send_from_directory
 from flask import request
+from analysis.distance import calc_distances
+from analysis.key_words import extract_keywords
 from crawler.crawler import crawlLinks
 from google_search import searchForLinks
 from steller import get_place_by_id
@@ -16,21 +22,82 @@ def static_dir(path):
 def hello_world():
     return send_from_directory("static", "index.html")
 
+@app.route('/large.csv')
+def generate_large_csv():
+    def generate():
+        for row in [1,2,2,2,2,2,2,2,2,2,2,2,2,2]:
+            result1 = ''.join((random.choice(string.ascii_uppercase) for x in range(100)))
+            sleep(1)
+            yield result1 + '\n'
+    return Response(generate(), mimetype='text/csv')
 # @app.route('/search')
 # def search():
 #     textToSearch = request.args.get("text")
 
     # return json.dumps(list(map(lambda x: x.toJson(), searchWikipedia(textToSearch))))
 
+def generate_response(searchText, place):
+    links = searchForLinks(searchText)
+    print("links", len(links))
+
+    yield json.dumps({
+        "links": links,
+        "place": {"id": place["id"], "data": place["data"]},
+    })
+
+    for section in crawlLinks(links, place["data"]["name"]):
+        if not section:
+            continue
+        keywords_scored = extract_keywords(section.get_text())
+        keywords = [kw[0] for kw in keywords_scored]
+        distances = calc_distances(place["data"]["name"].split(" ")[0].split(".")[0], keywords)
+        keywords_scored_distanced = [(kw, score, distance_with_alg) for (kw, score), distance_with_alg in zip(keywords_scored, distances)]
+        section.set_keywords(keywords_scored_distanced)
+        
+        yield json.dumps(section.toJson())
+
+@app.route('/crawl-stream')
+def crawlStream():
+    id = request.args.get("id")
+    place = get_place_by_id(id)
+    address = place["data"]["address"].split(", ")[-1]
+    searchText = place["data"]["name"] + " " + (address if place["data"]["name"].lower() != address.lower() else "")
+    print(f"Searching google for: {searchText}")
+
+    return Response(generate_response(searchText, place), mimetype='text/csv')
+    
+    # print("data", data)
+    # return json.dumps({
+    #     "data": list(map(lambda x: x.toJson(), sections)),
+    #     "links": links,
+    #     "place": place,
+    # })
+
 @app.route('/crawl')
 def crawl():
     id = request.args.get("id")
     place = get_place_by_id(id)
-    links = searchForLinks(place["data"]["address"])
+    address = place["data"]["address"].split(", ")[-1]
+    searchText = place["data"]["name"] + " " + (address if place["data"]["name"].lower() != address.lower() else "")
+    print(f"Searching google for: {searchText}")
+    links = searchForLinks(searchText)
     
     print("links", len(links))
-    print(links)
+    sections = []
+    for section in crawlLinks(links, place["data"]["name"]):
+        if not section:
+            continue
+        keywords_scored = extract_keywords(section.get_text())
+        keywords = [kw[0] for kw in keywords_scored]
+        distances = calc_distances(place["data"]["name"].split(" ")[0].split(".")[0], keywords)
+        keywords_scored_distanced = [(kw, score, distance_with_alg) for (kw, score), distance_with_alg in zip(keywords_scored, distances)]
+        section.set_keywords(keywords_scored_distanced)
+        sections.append(section)
 
-    data = crawlLinks(links, place["data"]["name"])
-    print("data", data)
-    return json.dumps(list(map(lambda x: x.toJson(), data)))
+    
+    # print("data", data)
+    return json.dumps({
+        "data": list(map(lambda x: x.toJson(), sections)),
+        "links": links,
+        "place": {"id": place["id"], "data": place["data"]},
+    })

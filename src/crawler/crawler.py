@@ -8,16 +8,14 @@ from crawler.general import Section, parseGeneral
 from .wikipedia import parseWikipediaPage
 
 def is_in_english(soup: BeautifulSoup) -> bool:
-    return soup.html["lang"] == "en"
+    return soup.html and (soup.html.get("lang", "").startswith("en") or not soup.html.get("lang"))
     
 def crawlLink(link: str, entity_name: str) -> tuple[str, List[str]]:
     print("crawling", link)
     session = HTMLSession()
     response = session.get(link)
 
-    print("parsing", link)
     page = BeautifulSoup(response.content, 'html.parser')
-    print("shitting", link)
     if not is_in_english(page):
         return None
 
@@ -26,12 +24,21 @@ def crawlLink(link: str, entity_name: str) -> tuple[str, List[str]]:
     else:
         return parseGeneral(page, entity_name)
 
-def crawlLinks(links: List[str], entity_name:str)->  List[tuple[str, List[str]]]:
+def crawlLinks(links: List[str], entity_name:str) ->  List[Section]:
     results = []
     for link in links[0:3]:
-        result = crawlLink(link, entity_name)
-        if result:
-            heading, paragraphs = result
-            results.append(Section(heading=heading, link=link, paragraphs=paragraphs))
+        try:
+            result = crawlLink(link, entity_name)
+            if result:
+                heading, paragraphs = result
+                if len(paragraphs) > 0:
+                    section = Section(heading=heading, link=link, paragraphs=paragraphs)
+                    results.append(section)
+                    yield section
+                else:
+                    yield None
+        except:
+            print("Crawling failed with error")
+            yield None
 
     return results

@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 import re
 from pyparsing import Optional
 import requests
- 
+import re
 
 def searchWiki(searchText):
     page = requests.get(f"https://en.wikipedia.org/w/index.php?search={searchText}&title=Special:Search&profile=advanced&fulltext=1&ns0=1")
@@ -41,6 +41,9 @@ def skip_first_brackets(paragraph):
     
     return (first_p[0:open_pos].strip() + first_p[close_pos + 1:]).strip()
 
+def remove_square_brackets(text):
+    return re.sub(r'\[[^\]]*\]', '',text)
+
 def skip_all_brackets(text):
     opened = 0
     foundOpeningAt = -1
@@ -54,7 +57,7 @@ def skip_all_brackets(text):
         if foundOpeningAt != -1 and opened == 0:
             # return foundOpeningAt, position
             return text[0:foundOpeningAt].strip() + skip_all_brackets(text[position + 1:])
-    return text
+    return remove_square_brackets(text)
 
 # get URL
 # page = requests.get("https://en.wikipedia.org/wiki/Main_Page")
