@@ -11,7 +11,7 @@ def has_link(tag):
     if not tag.find("h3"):
         return False
         
-    if "google" in tag.get("href"):
+    if "google" in tag.get("href") or "facebook.com" in tag.get("href"):
         return False
     return True
 

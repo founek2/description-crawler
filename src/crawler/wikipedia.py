@@ -3,9 +3,8 @@ import json
 from typing import List
 from bs4 import BeautifulSoup
 import re
+from pyparsing import Optional
 import requests
-
-from crawler.general import Section
  
 
 def searchWiki(searchText):
@@ -42,6 +41,21 @@ def skip_first_brackets(paragraph):
     
     return (first_p[0:open_pos].strip() + first_p[close_pos + 1:]).strip()
 
+def skip_all_brackets(text):
+    opened = 0
+    foundOpeningAt = -1
+    for position, char in enumerate(text):
+        if char == "(":
+            opened += 1
+            if foundOpeningAt == -1:
+                foundOpeningAt = position
+        if char == ")":
+            opened -= 1
+        if foundOpeningAt != -1 and opened == 0:
+            # return foundOpeningAt, position
+            return text[0:foundOpeningAt].strip() + skip_all_brackets(text[position + 1:])
+    return text
+
 # get URL
 # page = requests.get("https://en.wikipedia.org/wiki/Main_Page")
 
@@ -72,12 +86,10 @@ def findWikipediaPage(text: str):
     el = resultList[0] 
     return requests.get("https://en.wikipedia.org/" + el.a["href"])
 
-def parseWikipediaPage(page: requests.Response) -> List['Section']:
-    print("parsing ", page.url)
-    soup = BeautifulSoup(page.content, 'html.parser')
+def parseWikipediaPage(soup: BeautifulSoup) -> tuple[str, List[str]]:
     content = soup.find(id="mw-content-text").find("div", {"class": "mw-parser-output"})
     content = content.contents
-    print(len(content))
+
     allowed = []
     for el in content:
         #or el.has_attr("class") == "mw-empty-elt"
@@ -88,11 +100,8 @@ def parseWikipediaPage(page: requests.Response) -> List['Section']:
         #     print(el.name)
         if el.name == "h2":
             allowed.append(el)
-        if  el.name == "p" and not el.find(id="coordinates"): # ignore coordinates
+        if  el.name == "p" and not el.find(id="coordinates") and el.get_text(strip=True) != "": # ignore coordinates
             allowed.append(el)
-
-    print(len(allowed))
-    print(allowed[0].name)
 
     #paragraphs = content  # filter empty and .mw-empty-elt
     # for item in content.find_all("p", {"class": "mw-empty-elt"}):
@@ -101,20 +110,13 @@ def parseWikipediaPage(page: requests.Response) -> List['Section']:
     #     if len(item.get_text(strip=True)) == 0:
     #         item.extract()
 
-    print(allowed[0])
     heading = soup.find(id="firstHeading").get_text()
-    sections = [Section(heading)]
-    for el in allowed[:10]:
-        # print(el.name, el.next_sibling.name)
-        # if el.name =="h2":
-        #     print(el.get_text())
-        if el.name == "h2":
-            heading = el.find("span", {"class":"mw-headline"}).get_text()
-            sections.append(Section(heading))
-        elif el.name == "p":
-            sections[-1].paragraphs.append(skip_first_brackets(el))
+    paragraphs = []
+    for el in allowed[:2]:
+        if el.name == "p":
+            paragraphs.append(skip_all_brackets(el.get_text()))
 
-    return sections
+    return heading, paragraphs
     # results = []
     # for i in range(limit):
     #     results.append(skip_first_brackets(paragraphs[i]))
@@ -129,7 +131,8 @@ def parseWikipediaPage(page: requests.Response) -> List['Section']:
 # print(first_p[0:open_pos - 1] + first_p[close_pos + 1:])
 if __name__ == "__main__":
     # print(searchWikipedia("Prague"))
-    crawlWikipedia("Prague", "Prague czechia")
+    # crawlWikipedia("Prague", "Prague czechia")
     # searchWikipedia("Prague")
 
     # print(json.dumps(list(map(lambda x: x.toJson(), searchWikipedia("Prague")))))
+    print(skip_all_brackets("Kyoto (/ˈkjoʊtoʊ/;[3] Japanese: 京都, Kyōto [kʲoꜜːto] (listen)), officially Kyoto City (京都市, Kyōto-shi, [kʲoːtoꜜɕi] (listen)), is the capital city of Kyoto Prefecture in Japan. Located in the Kansai region on the island of Honshu, Kyoto forms a part of the Keihanshin metropolitan area a"))

@@ -2,7 +2,7 @@ import json
 from flask import Flask, jsonify
 from flask import Flask, send_from_directory
 from flask import request
-from crawler import crawlLink
+from crawler.crawler import crawlLinks
 from google_search import searchForLinks
 from steller import get_place_by_id
 
@@ -27,6 +27,10 @@ def crawl():
     id = request.args.get("id")
     place = get_place_by_id(id)
     links = searchForLinks(place["data"]["address"])
-    print("links", links)
-    data = crawlLink(links[0])
+    
+    print("links", len(links))
+    print(links)
+
+    data = crawlLinks(links, place["data"]["name"])
+    print("data", data)
     return json.dumps(list(map(lambda x: x.toJson(), data)))
