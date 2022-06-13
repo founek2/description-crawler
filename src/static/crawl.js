@@ -1,5 +1,6 @@
 function onChunkedResponseComplete(result) {
     console.log('all done!');
+    return result;
 }
 
 function onChunkedResponseError(err) {
@@ -8,6 +9,9 @@ function onChunkedResponseError(err) {
 
 function processChunkedResponse(onSection) {
     return (response) => {
+        if (response.status != 200) {
+            return false;
+        }
         var text = '';
         var reader = response.body.getReader();
         var decoder = new TextDecoder();

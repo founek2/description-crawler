@@ -124,7 +124,7 @@ async function handleStreamSection(section) {
 
 let timeout = null;
 window.addEventListener('load', function () {
-    this.document.addEventListener('keyup', function (e) {
+    this.document.querySelector('#search-box').addEventListener('keyup', function (e) {
         clearTimeout(timeout);
         timeout = setTimeout(
             fuzzySearch.bind(null, generateOptions, handleOptionClick, resetDatalist.bind(null, 'random-list')),
@@ -132,6 +132,12 @@ window.addEventListener('load', function () {
         );
     });
 
+    const idExample = '3e5fa772-b720-4a89-9aac-a4c9149bca7c';
+    this.document.querySelector('#search-by-id').addEventListener('keyup', function (e) {
+        if (this.value.length == idExample.length) {
+            handleOptionClick(this.value);
+        }
+    });
     // resetDatalist('random-list');
 
     const randomList = document.querySelector('#random-list');
