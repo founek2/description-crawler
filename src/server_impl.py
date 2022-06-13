@@ -41,8 +41,10 @@ def generate_response_data(id: str):
     print(f"Searching google for: {searchText}")
     
     links = prefer_wiki(searchForLinks(searchText))
-    print("links", links)
     links = links[0:3]
+    if place["data"]["website_url"]:
+        links.append(place["data"]["website_url"])
+    print("links", links)
 
     yield {
         "links": links,
