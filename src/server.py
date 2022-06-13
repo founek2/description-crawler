@@ -50,7 +50,7 @@ def crawlStream():
     searchText = place["data"]["name"] + " " + (address if place["data"]["name"].lower() != address.lower() else "")
     print(f"Searching google for: {searchText}")
 
-    return Response(generate_response(searchText, place), mimetype='text/csv')
+    return Response(generate_response(searchText, place), mimetype='application/json')
     
     # print("data", data)
     # return json.dumps({
@@ -82,8 +82,8 @@ def crawl():
 
     
     # print("data", data)
-    return json.dumps({
+    return Response(json.dumps({
         "data": list(map(lambda x: x.toJson(), sections)),
         "links": links,
         "place": {"id": place["id"], "data": place["data"]},
-    })
+    }), mimetype='application/json')
