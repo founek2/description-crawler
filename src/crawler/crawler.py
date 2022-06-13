@@ -11,17 +11,27 @@ def is_in_english(soup: BeautifulSoup) -> bool:
     return soup.html and (soup.html.get("lang", "").startswith("en") or not soup.html.get("lang"))
     
 def crawlLink(link: str, entity_name: str) -> tuple[str, List[str]]:
-    print("crawling", link)
     session = HTMLSession()
-    response = session.get(link)
 
-    page = BeautifulSoup(response.content, 'html.parser')
-    if not is_in_english(page):
-        return None
 
-    if "wikipedia.org" in link:
-        return parseWikipediaPage(page)
+    if "en.wikipedia.org" in link:
+        print("original", link)
+        page_name = link.split("/")[-1]
+        link = f"https://en.wikipedia.org/w/rest.php/v1/page/{page_name}/html"
+        print("crawling", link)
+        response = session.get(link)
+        page = BeautifulSoup(response.content, 'html.parser')
+        if not is_in_english(page):
+            return None
+
+        return page_name.replace("_", " "), parseWikipediaPage(page)
     else:
+        print("crawling", link)
+        response = session.get(link)
+        page = BeautifulSoup(response.content, 'html.parser')
+        if not is_in_english(page):
+            return None
+
         return parseGeneral(page, entity_name)
 
 def crawlLinks(links: List[str], entity_name:str) ->  List[Section]:
@@ -37,8 +47,8 @@ def crawlLinks(links: List[str], entity_name:str) ->  List[Section]:
                     yield section
                 else:
                     yield None
-        except:
-            print("Crawling failed with error")
+        except Exception as e:
+            print("Crawling failed with error", e) 
             yield None
 
     return results

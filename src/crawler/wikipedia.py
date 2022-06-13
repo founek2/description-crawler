@@ -85,37 +85,20 @@ def findWikipediaPage(text: str):
     el = resultList[0] 
     return requests.get("https://en.wikipedia.org/" + el.a["href"])
 
-def parseWikipediaPage(soup: BeautifulSoup) -> tuple[str, List[str]]:
-    content = soup.find(id="mw-content-text").find("div", {"class": "mw-parser-output"})
-    content = content.contents
+def parseWikipediaPage(soup: BeautifulSoup) -> List[str]:
+    allowed = soup.find_all(lambda x: (x.name == "p" or x.name=="h2") and x.get_text(strip=True) != "")
 
-    allowed = []
-    for el in content:
-        #or el.has_attr("class") == "mw-empty-elt"
-  
-        # if (el.name != "p" and el.name != "h2") or el.name == None or len(el.get_text(strip=True)) == 0:
-        #     el.extract()
-        # else:
-        #     print(el.name)
-        if el.name == "h2":
-            allowed.append(el)
-        if  el.name == "p" and not el.find(id="coordinates") and el.get_text(strip=True) != "": # ignore coordinates
-            allowed.append(el)
-
-    #paragraphs = content  # filter empty and .mw-empty-elt
-    # for item in content.find_all("p", {"class": "mw-empty-elt"}):
-    #     paragraphs.remove(item)
-    # for item in paragraphs:
-    #     if len(item.get_text(strip=True)) == 0:
-    #         item.extract()
-
-    heading = soup.find(id="firstHeading").get_text()
     paragraphs = []
-    for el in allowed[:2]:
+    for el in allowed[:4]:
         if el.name == "p":
-            paragraphs.append(skip_all_brackets(el.get_text()))
+            for t in el:    # remove citations - ex. [3]
+                if t.name == "sup":
+                    t.extract()
 
-    return heading, paragraphs
+            text = el.get_text(strip=True)
+            paragraphs.append(skip_all_brackets(text))
+
+    return paragraphs
     # results = []
     # for i in range(limit):
     #     results.append(skip_first_brackets(paragraphs[i]))
