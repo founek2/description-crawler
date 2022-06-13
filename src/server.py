@@ -1,5 +1,5 @@
 import json
-from flask import Flask, Response, jsonify
+from flask import Flask, Response, abort, jsonify
 from flask import Flask, send_from_directory
 from flask import request
 from analysis.distance import calc_distances
@@ -7,8 +7,10 @@ from analysis.key_words import extract_keywords
 from crawler.crawler import crawlLinks
 from google_search import searchForLinks
 from steller import get_place_by_id
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/static/<path:path>")
 def static_dir(path):
@@ -42,6 +44,8 @@ def generate_response(searchText, place):
 def crawlStream():
     id = request.args.get("id")
     place = get_place_by_id(id)
+    if "data" not in place:
+        abort(404)
     address = place["data"]["address"].split(", ")[-1]
     searchText = place["data"]["name"] + " " + (address if place["data"]["name"].lower() != address.lower() else "")
     print(f"Searching google for: {searchText}")
