@@ -19,7 +19,7 @@ def hello_world():
     return send_from_directory("static", "index.html")
 
 def generate_response(searchText, place):
-    links = searchForLinks(searchText)
+    links = searchForLinks(searchText)[0:3]
     print("links", len(links))
 
     yield json.dumps({
@@ -62,7 +62,7 @@ def crawl():
     address = place["data"]["address"].split(", ")[-1]
     searchText = place["data"]["name"] + " " + (address if place["data"]["name"].lower() != address.lower() else "")
     print(f"Searching google for: {searchText}")
-    links = searchForLinks(searchText)
+    links = searchForLinks(searchText)[0:3]
     
     print("links", len(links))
     sections = []

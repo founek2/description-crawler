@@ -26,7 +26,7 @@ def crawlLink(link: str, entity_name: str) -> tuple[str, List[str]]:
 
 def crawlLinks(links: List[str], entity_name:str) ->  List[Section]:
     results = []
-    for link in links[0:3]:
+    for link in links:
         try:
             result = crawlLink(link, entity_name)
             if result:
