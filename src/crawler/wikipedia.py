@@ -1,9 +1,5 @@
-from json import JSONEncoder
-import json
 from typing import List
 from bs4 import BeautifulSoup
-import re
-from pyparsing import Optional
 import requests
 import re
 

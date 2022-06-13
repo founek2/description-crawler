@@ -1,8 +1,4 @@
 import json
-import random
-from re import search
-import string
-from time import sleep
 from flask import Flask, Response, jsonify
 from flask import Flask, send_from_directory
 from flask import request
@@ -21,20 +17,6 @@ def static_dir(path):
 @app.route('/')
 def hello_world():
     return send_from_directory("static", "index.html")
-
-@app.route('/large.csv')
-def generate_large_csv():
-    def generate():
-        for row in [1,2,2,2,2,2,2,2,2,2,2,2,2,2]:
-            result1 = ''.join((random.choice(string.ascii_uppercase) for x in range(100)))
-            sleep(1)
-            yield result1 + '\n'
-    return Response(generate(), mimetype='text/csv')
-# @app.route('/search')
-# def search():
-#     textToSearch = request.args.get("text")
-
-    # return json.dumps(list(map(lambda x: x.toJson(), searchWikipedia(textToSearch))))
 
 def generate_response(searchText, place):
     links = searchForLinks(searchText)

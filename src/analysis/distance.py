@@ -1,5 +1,3 @@
-import threading
-import time
 from typing import List
 import gensim.downloader
 import Levenshtein 
@@ -26,9 +24,9 @@ import Levenshtein
 # begin_load_model()
 # wait_foo()
 
-print("loading model")
-# model = gensim.downloader.load('glove-wiki-gigaword-100')
-model = {}
+print("loading model word2vec (this might take a while)...")
+model = gensim.downloader.load('glove-wiki-gigaword-100')
+# model = {}
 print("loaded")
 
 def fallback_distance(keyword: str, kw: str) -> tuple[float, str]:

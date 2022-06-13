@@ -1,8 +1,5 @@
-from ctypes import Union
 from typing import List
 from bs4 import BeautifulSoup
-from pyparsing import Optional
-import requests
 
 
 class Section(object):
