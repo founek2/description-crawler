@@ -15,7 +15,7 @@
 ## API
 
 -   `/crawl?id=INTERNAL_ID` - classic REST API, returns {data, links, place}
--   `/crawl-stream?id=INTERNAL_ID` - chunked REST API, first chunk is {links, place}, then data
+-   `/crawl-stream?id=INTERNAL_ID` - chunked REST API, first chunk is {links, place}, then data element per chunk. Each chunk is separeted by `///\n`
 
 > INTERNAL_ID is stellar id of place
 

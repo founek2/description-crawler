@@ -52,7 +52,7 @@ def skip_all_brackets(text):
             opened -= 1
         if foundOpeningAt != -1 and opened == 0:
             # return foundOpeningAt, position
-            return text[0:foundOpeningAt].strip() + skip_all_brackets(text[position + 1:])
+            return text[0:foundOpeningAt] + skip_all_brackets(text[position + 1:])
     return remove_square_brackets(text)
 
 # get URL
@@ -86,17 +86,17 @@ def findWikipediaPage(text: str):
     return requests.get("https://en.wikipedia.org/" + el.a["href"])
 
 def parseWikipediaPage(soup: BeautifulSoup) -> List[str]:
-    allowed = soup.find_all(lambda x: (x.name == "p" or x.name=="h2") and x.get_text(strip=True) != "")
+    allowed = soup.select("section > p:not(#coordinates)")
 
     paragraphs = []
     for el in allowed[:4]:
-        if el.name == "p":
-            for t in el:    # remove citations - ex. [3]
-                if t.name == "sup":
-                    t.extract()
+        for t in el:   
+            if t.name == "sup":
+                 # remove citations - ex. [3]
+                t.extract()
 
-            text = el.get_text(strip=True)
-            paragraphs.append(skip_all_brackets(text))
+        text = el.get_text()
+        paragraphs.append(skip_all_brackets(text))
 
     return paragraphs
     # results = []
@@ -112,9 +112,5 @@ def parseWikipediaPage(soup: BeautifulSoup) -> List[str]:
 # open_pos, close_pos = location_of_first_brackets(first_p, offset=headline_len)
 # print(first_p[0:open_pos - 1] + first_p[close_pos + 1:])
 if __name__ == "__main__":
-    # print(searchWikipedia("Prague"))
-    # crawlWikipedia("Prague", "Prague czechia")
-    # searchWikipedia("Prague")
-
-    # print(json.dumps(list(map(lambda x: x.toJson(), searchWikipedia("Prague")))))
-    print(skip_all_brackets("Kyoto (/ˈkjoʊtoʊ/;[3] Japanese: 京都, Kyōto [kʲoꜜːto] (listen)), officially Kyoto City (京都市, Kyōto-shi, [kʲoːtoꜜɕi] (listen)), is the capital city of Kyoto Prefecture in Japan. Located in the Kansai region on the island of Honshu, Kyoto forms a part of the Keihanshin metropolitan area a"))
+    # print(skip_all_brackets("Kyoto (/ˈkjoʊtoʊ/;[3] Japanese: 京都, Kyōto [kʲoꜜːto] (listen)), officially Kyoto City (京都市, Kyōto-shi, [kʲoːtoꜜɕi] (listen)), is the capital city of Kyoto Prefecture in Japan. Located in the Kansai region on the island of Honshu, Kyoto forms a part of the Keihanshin metropolitan area a"))
+    print(skip_all_brackets("The Gardens of Versailles (French: Jardins du château de Versailles [ʒaʁdɛ̃ dy ʃɑto d(ə) vɛʁsɑj]) occupy part of what was once the Domaine royal de Versailles, the royal demesne of the château of Versailles."))

@@ -15,7 +15,6 @@ def crawlLink(link: str, entity_name: str) -> tuple[str, List[str]]:
 
 
     if "en.wikipedia.org" in link:
-        print("original", link)
         page_name = link.split("/")[-1]
         link = f"https://en.wikipedia.org/w/rest.php/v1/page/{page_name}/html"
         print("crawling", link)
@@ -25,6 +24,12 @@ def crawlLink(link: str, entity_name: str) -> tuple[str, List[str]]:
             return None
 
         return page_name.replace("_", " "), parseWikipediaPage(page)
+    elif "tripadvisor.com" in link:
+        # contains no useful information
+        return None
+    elif "wikitravel.org" in link:
+        # takes > 20s to load
+        return None
     else:
         print("crawling", link)
         response = session.get(link)
@@ -34,13 +39,14 @@ def crawlLink(link: str, entity_name: str) -> tuple[str, List[str]]:
 
         return parseGeneral(page, entity_name)
 
-def crawlLinks(links: List[str], entity_name:str) ->  List[Section]:
+def crawlLinks(links, entity_name:str) ->  List[Section]:
     results = []
     for link in links:
         try:
             result = crawlLink(link, entity_name)
             if result:
                 heading, paragraphs = result
+
                 if len(paragraphs) > 0:
                     section = Section(heading=heading, link=link, paragraphs=paragraphs)
                     results.append(section)

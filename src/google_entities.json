@@ -1,0 +1,74 @@
+{
+    "@context": {
+        "goog": "http://schema.googleapis.com/",
+        "kg": "http://g.co/kg",
+        "@vocab": "http://schema.org/",
+        "resultScore": "goog:resultScore",
+        "EntitySearchResult": "goog:EntitySearchResult",
+        "detailedDescription": "goog:detailedDescription"
+    },
+    "@type": "ItemList",
+    "itemListElement": [
+        {
+            "result": { "@id": "kg:/g/11j0sc8pb0", "name": "Prague, Czechia", "@type": ["Thing", "Event"] },
+            "resultScore": 24,
+            "@type": "EntitySearchResult"
+        },
+        {
+            "@type": "EntitySearchResult",
+            "resultScore": 0.2239102423191071,
+            "result": {
+                "image": {
+                    "url": "https://en.wikipedia.org/wiki/Prague_Institute_of_Planning_and_Development",
+                    "contentUrl": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSEXnMLm2BROyXEJnp7La-S7ZLKQsOMLJaxPlJEw_d31agTPE4j"
+                },
+                "@type": ["Thing", "Organization"],
+                "name": "Prague Institute of Planning and Development",
+                "detailedDescription": {
+                    "url": "https://en.wikipedia.org/wiki/Prague_Institute_of_Planning_and_Development",
+                    "articleBody": "Prague Institute of Planning and Development is a public-benefit corporation in charge of developing the concept behind the city's architecture, urbanism, development and formation managed by City Hall of Prague, Czechia. ",
+                    "license": "https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"
+                },
+                "@id": "kg:/g/1q6l81sc6"
+            }
+        },
+        {
+            "resultScore": 0.07745694369077682,
+            "result": {
+                "name": "Proton Therapy Center Czech s.r.o.",
+                "@id": "kg:/g/12ckhh_7s",
+                "@type": ["Thing", "Corporation", "Organization"]
+            },
+            "@type": "EntitySearchResult"
+        },
+        {
+            "result": {
+                "@type": ["Thing", "Corporation", "Organization"],
+                "name": "S&amp;T CZ s.r.o.",
+                "description": "Company",
+                "@id": "kg:/g/11fy1svshj"
+            },
+            "@type": "EntitySearchResult",
+            "resultScore": 0.06251209229230881
+        },
+        {
+            "resultScore": 0.03665841743350029,
+            "@type": "EntitySearchResult",
+            "result": {
+                "detailedDescription": {
+                    "license": "https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License",
+                    "articleBody": "Albert Česká republika, s.r.o., is a division of the Netherlands-based Ahold Delhaize group, operating in the Czech Republic. The company began trading in Czechoslovakia in 1990. ",
+                    "url": "https://en.wikipedia.org/wiki/Albert_Czech_Republic"
+                },
+                "description": "Supermarket company",
+                "@id": "kg:/m/0_txw9b",
+                "@type": ["Thing", "Corporation", "Organization"],
+                "name": "Albert",
+                "image": {
+                    "url": "https://commons.wikimedia.org/wiki/File:Albert_Logo.png",
+                    "contentUrl": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTIhBVNJN78s8UIhF8ASYoW8Roiwn7rTzSjy1amLCcP6ZUigdw1"
+                }
+            }
+        }
+    ]
+}
