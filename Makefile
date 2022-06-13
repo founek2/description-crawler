@@ -1,4 +1,2 @@
 run:
-	export FLASK_APP=src/server.py
-	FLASK_ENV=development
-	flask run
+	FLASK_ENV=development FLASK_APP=src/server.py flask run
