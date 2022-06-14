@@ -1,16 +1,16 @@
 
 
-from typing import List
+from typing import List, Union
 from bs4 import BeautifulSoup
 from requests_html import HTMLSession
-from crawler.general import Section, parseGeneral
+from .general import Section, parseGeneral
 
 from .wikipedia import parseWikipediaPage
 
 def is_in_english(soup: BeautifulSoup) -> bool:
     return soup.html and (soup.html.get("lang", "").startswith("en") or not soup.html.get("lang"))
     
-def crawlLink(link: str, entity_name: str) -> tuple[str, List[str]]:
+def crawlLink(link: str, entity_name: str, description_prefix: Union[str, None]) -> tuple[str, List[str]]:
     session = HTMLSession()
 
 
@@ -24,12 +24,6 @@ def crawlLink(link: str, entity_name: str) -> tuple[str, List[str]]:
             return None
 
         return page_name.replace("_", " "), parseWikipediaPage(page)
-    elif "tripadvisor.com" in link:
-        # contains no useful information
-        return None
-    elif "wikitravel.org" in link:
-        # takes > 20s to load
-        return None
     else:
         print("crawling", link)
         response = session.get(link)
@@ -37,14 +31,14 @@ def crawlLink(link: str, entity_name: str) -> tuple[str, List[str]]:
         if not is_in_english(page):
             return None
 
-        return parseGeneral(page, entity_name)
+        return parseGeneral(page, entity_name, description_prefix)
 
 def crawlLinks(links, entity_name:str) ->  List[Section]:
     results = []
-    for link in links:
+    for link, description_prefix in links:
         try:
-            result = crawlLink(link, entity_name)
-            if result:
+            result = crawlLink(link, entity_name, description_prefix)
+            if result and len(result[1]) > 0:
                 heading, paragraphs = result
 
                 if len(paragraphs) > 0:
@@ -58,3 +52,6 @@ def crawlLinks(links, entity_name:str) ->  List[Section]:
             yield None
 
     return results
+
+if __name__ == "__main__":
+    print(crawlLink("https://en.wikivoyage.org/wiki/Prague", "Prague", "Prague (Czech: Praha) is the capital and largest city of the Czech Republic. The city's historic buildings and narrow, winding streets are testament to its"))

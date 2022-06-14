@@ -19,16 +19,9 @@ def generate_response(id: str):
     for data in generate_response_data(id):
         yield json.dumps(data) + "///\n" 
 
-def prefer_wiki(links):
-    result = []
-    rest = []
-    for link in links:
-        if "wiki" in link:
-            result.append(link)
-        else:
-            rest.append(link)
 
-    return result + rest
+
+
 
 def generate_response_data(id: str):
     place = get_place_by_id(id)
@@ -39,11 +32,12 @@ def generate_response_data(id: str):
     name = extract_main_name(place["data"]["name"])
     searchText = "wiki " + name + " " + (country if name != country else "")
     print(f"Searching google for: {searchText}")
-    
-    links = prefer_wiki(searchForLinks(searchText))
+
+    links = searchForLinks(searchText)
+
     links = links[0:3]
     if place["data"]["website_url"]:
-        links.append(place["data"]["website_url"])
+        links.append((place["data"]["website_url"], None))
     print("links", links)
 
     yield {
