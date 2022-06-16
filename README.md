@@ -14,6 +14,11 @@
 
 <!-- -   https://wikitravel.org - load time > 20s :( -->
 
+## Env
+
+-   `API_CRAWL_STREAM_PATH` - default `/crawl-stream`
+-   `API_CRAWL_PATH` - default `/crawl`
+
 ## API
 
 -   `/crawl?id=INTERNAL_ID` - classic REST API, returns {data, links, place}

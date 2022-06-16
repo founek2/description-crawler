@@ -25,8 +25,8 @@ import Levenshtein
 # wait_foo()
  
 print("loading model word2vec (this might take a while)...")
-# model = gensim.downloader.load('glove-wiki-gigaword-100')
-model = {}
+model = gensim.downloader.load('glove-wiki-gigaword-100')
+# model = {}
 print("loaded")
 
 def fallback_distance(keyword: str, kw: str) -> tuple[float, str]:

@@ -1,4 +1,5 @@
 import json
+import os
 from flask import Flask, Response, abort, jsonify
 from flask import Flask, send_from_directory
 from flask import request
@@ -9,6 +10,11 @@ from google_search import searchForLinks
 from steller import get_place_by_id
 from flask_cors import CORS
 from server_impl import generate_response, generate_response_data
+
+print(os.environ)
+
+API_CRAWL_PATH = os.environ.get('API_CRAWL_PATH', "/crawl")
+API_CRAWL_STREAM_PATH = os.environ.get('API_CRAWL_STREAM_PATH', "/crawl-stream")
 
 app = Flask(__name__)
 CORS(app)
@@ -21,14 +27,14 @@ def static_dir(path):
 def hello_world():
     return send_from_directory("static", "index.html")
 
-@app.route('/crawl-stream')
+@app.route(API_CRAWL_STREAM_PATH)
 def crawlStream():
     id = request.args.get("id")
 
     return Response(generate_response(id), mimetype='application/json')
     
 
-@app.route('/crawl')
+@app.route(API_CRAWL_PATH)
 def crawl():
     id = request.args.get("id")
     processing = generate_response_data(id)
