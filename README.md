@@ -18,6 +18,7 @@
 
 -   `API_CRAWL_STREAM_PATH` - default `/crawl-stream`
 -   `API_CRAWL_PATH` - default `/crawl`
+-   `API_STELLER_PLACE_URL` - default `https://api.demo.steller.co/v1/places/internal`
 
 ## API
 
